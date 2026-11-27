@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pywgc"
+version = "0.1.0"
+description = "Low-latency Windows window capture: Windows.Graphics.Capture first, GDI fallback."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Tang Cheng" }]
+keywords = [
+    "windows",
+    "wgc",
+    "windows-graphics-capture",
+    "screen-capture",
+    "window-capture",
+    "gdi",
+    "computer-vision",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Operating System :: Microsoft :: Windows :: Windows 10",
+    "Operating System :: Microsoft :: Windows :: Windows 11",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics :: Capture :: Screen Capture",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "numpy>=1.24",
+    "windows-capture>=1.3.0",
+]
+
+[project.optional-dependencies]
+# 用 OpenCV 的 SIMD 做 BGRA->BGR，比 numpy 回退路径快约 3 倍（见 README 性能表）。
+fast = ["opencv-python-headless>=4.8"]
+# GDI (BitBlt) 降级后端。只在 WGC 不可用时才需要。
+gdi = ["mss>=9.0"]
+all = ["pywgc[fast,gdi]"]
+dev = [
+    "pytest>=7.4",
+    "build>=1.0",
+    "ruff>=0.5",
+    "pywgc[fast,gdi]",
+]
+
+# 源码仓库地址。**必须在首次上传前填好** —— PyPI 对已发布版本的元数据只读，
+# 上传后再补只能 yank 并重发新版本。详见 docs/releasing.md。
+[project.urls]
+Homepage = "https://github.com/uavbooster/pywgc"
+Documentation = "https://github.com/uavbooster/pywgc#readme"
+Source = "https://github.com/uavbooster/pywgc"
+Changelog = "https://github.com/uavbooster/pywgc/blob/main/CHANGELOG.md"
+Issues = "https://github.com/uavbooster/pywgc/issues"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+pywgc = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]

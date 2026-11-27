@@ -1,0 +1,24 @@
+# 构建产物
+build/
+dist/
+*.egg-info/
+src/*.egg-info/
+
+# 缓存
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# 虚拟环境
+.venv/
+venv/
+
+# 本地验证用的隔离依赖目录（pip install --target 的产物）
+.pytest-libs/
+# 上传工具链（twine 等），同样不进版本库
+.pypi-libs/
+
+# 本地草稿
+*.local.md
+_*.txt
