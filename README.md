@@ -1,6 +1,7 @@
 # pywgc
 
 [![PyPI](https://img.shields.io/pypi/v/pywgc.svg)](https://pypi.org/project/pywgc/)
+[![CI](https://github.com/uavbooster/pywgc/actions/workflows/ci.yml/badge.svg)](https://github.com/uavbooster/pywgc/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/pypi/pyversions/pywgc.svg)](https://pypi.org/project/pywgc/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%2B-blue.svg)](#compatibility)
